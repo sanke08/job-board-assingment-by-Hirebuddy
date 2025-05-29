@@ -20,10 +20,13 @@ export type SearchKeyword = {
 };
 
 export default async function JobBoard({
-  searchParams,
+  searchParams: SEARCH_PARAMS,
 }: {
-  searchParams: { [key: string]: string };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
+
+  const searchParams = await SEARCH_PARAMS
+
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 via-white to-purple-50">
       {/* Sticky header for mobile and desktop */}

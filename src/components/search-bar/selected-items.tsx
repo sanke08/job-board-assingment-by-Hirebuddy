@@ -3,7 +3,6 @@
 import { Edit, Search, X } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
-import { useState } from "react";
 
 type TabType = "title" | "location" | "work_type";
 

@@ -6,12 +6,11 @@ import { Card, CardContent } from "@/components/ui/card"
 import ListingFeed from "./listing-feed"
 
 type Props = {
-    searchParams: { [key: string]: string }
+    searchParams: { [key: string]: string | string[] | undefined };
 }
 
-const Listings = async ({ searchParams: SEARCH_PARAMS }: Props) => {
+const Listings = async ({ searchParams }: Props) => {
 
-    const searchParams = await SEARCH_PARAMS
 
     const finalParams = { ...searchParams, }
 

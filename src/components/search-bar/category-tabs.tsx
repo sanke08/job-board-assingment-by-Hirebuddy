@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import {
     Command,
     CommandGroup,
@@ -136,7 +136,7 @@ const CategoryTabs = ({
                             value={inputValue.trim()}
                             onSelect={() => handleSelectTitle(inputValue.trim())}
                         >
-                            Add <span className="font-medium">"{inputValue.trim()}"</span>
+                            Add <span className="font-medium">&quot;{inputValue.trim()}&quot;</span>
                         </CommandItem>
                     )}
                 </CommandGroup>

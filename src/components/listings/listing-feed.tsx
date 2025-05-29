@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import ListingCard from "./listing-card"
 import { Job } from "@/app/page"
 import axios from "axios"
@@ -13,7 +13,7 @@ const ListingFeed = ({ data, searchParams }: { data: Job[], searchParams: Record
     const [hasMore, setHasMore] = useState(true)
     const observerRef = useRef<HTMLDivElement | null>(null)
 
-    const loadMoreJobs = async () => {
+    const loadMoreJobs = useCallback(async () => {
         if (loading || !hasMore) return
 
         setLoading(true)
@@ -39,7 +39,7 @@ const ListingFeed = ({ data, searchParams }: { data: Job[], searchParams: Record
         } finally {
             setLoading(false)
         }
-    }
+    }, [loading, hasMore, searchParams])
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -59,7 +59,7 @@ const ListingFeed = ({ data, searchParams }: { data: Job[], searchParams: Record
         return () => {
             if (currentRef) observer.unobserve(currentRef)
         }
-    }, [hasMore, searchParams])
+    }, [loadMoreJobs])
 
 
     useEffect(() => {

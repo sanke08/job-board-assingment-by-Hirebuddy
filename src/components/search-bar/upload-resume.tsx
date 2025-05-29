@@ -1,10 +1,7 @@
-
-
-
 "use client";
 
 import { useState } from "react";
-import { File, Loader, Upload, X } from "lucide-react";
+import { File as FileIcon, Loader, Upload, X } from "lucide-react";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 
@@ -12,7 +9,7 @@ const UploadResume = () => {
     const [resumeFile, setResumeFile] = useState<File | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const router = useRouter()
+    const router = useRouter();
 
     const handleRemoveFile = () => {
         setResumeFile(null);
@@ -38,23 +35,22 @@ const UploadResume = () => {
 
             const predictedRoles: string[] = data.predictedRoles;
 
-
-
             if (predictedRoles.length > 0) {
-
-                // 🔍 Replace with your actual search logic
                 performSearch(predictedRoles);
             } else {
                 setError("No roles detected in resume.");
             }
-        } catch (err: any) {
+        } catch (err) {
             console.error(err);
-            setError(err.message || "Unknown error");
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError("Unknown error");
+            }
         } finally {
             setLoading(false);
         }
     };
-
 
     const performSearch = (roles: string[]) => {
         const encodedRoles = encodeURIComponent(roles.join(","));
@@ -97,7 +93,7 @@ const UploadResume = () => {
                     </>
                 ) : (
                     <div className="flex items-center justify-between w-max gap-2">
-                        <File />
+                        <FileIcon />
                         <p className="text-xs md:text-sm text-gray-600 break-all flex-1">
                             {resumeFile.name.length > 30
                                 ? `${resumeFile.name.slice(0, 27)}...`
@@ -116,13 +112,9 @@ const UploadResume = () => {
                 )}
             </div>
 
-            {
-                loading && <Loader className="animate-spin mx-auto size-5" />
-            }
+            {loading && <Loader className="animate-spin mx-auto w-5 h-5" />}
 
-            {error && (
-                <p className="text-xs text-red-500 text-center">{error}</p>
-            )}
+            {error && <p className="text-xs text-red-500 text-center">{error}</p>}
         </div>
     );
 };

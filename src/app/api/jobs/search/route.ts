@@ -146,7 +146,13 @@ export async function GET(request: NextRequest) {
             sourceTerms.length > 0;
 
         if (hasSearch) {
-            const searchStage: any = {
+            const searchStage: {
+                index: string;
+                compound: {
+                    should: object[];
+                    filter: object[];
+                };
+            } = {
                 index: "default",
                 compound: {
                     should: [],
