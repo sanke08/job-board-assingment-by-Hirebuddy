@@ -24,7 +24,7 @@ const Listings = async ({ searchParams }: Props) => {
 
     const query = new URLSearchParams(stringParams).toString()
 
-    const { data: { jobs } } = await axios.get(`http://localhost:3000/api/jobs/search?${query}`)
+    const { data: { jobs } } = await axios.get(`/api/jobs/search?${query}`)
 
     return (
         <div className="space-y-4">
