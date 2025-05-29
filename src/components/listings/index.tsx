@@ -1,6 +1,5 @@
 
 // app/components/listings.tsx
-import axios from "axios"
 import { Briefcase } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import ListingFeed from "./listing-feed"
