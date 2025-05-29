@@ -13,7 +13,7 @@ const ListingCard = ({ apply_link, company_name, job_description, job_location, 
 
     return (
         <Card className="hover:shadow-lg transition-shadow p-3">
-            <CardHeader className=" px-0">
+            <CardHeader className=" px-0 md:p-2">
                 <div className="space-y-1 w-full flex items-center justify-between">
                     <CardTitle className="text-xl text-blue-900 hover:text-blue-700">{job_title}</CardTitle>
                     <Badge variant="secondary">{source}</Badge>
@@ -29,12 +29,12 @@ const ListingCard = ({ apply_link, company_name, job_description, job_location, 
                     </div>
                 </div>
             </CardHeader>
-            <CardContent className=" p-0">
+            <CardContent className=" p-0 md:px-3">
                 {/* <p className="text-gray-700 mb-4 leading-relaxed">{job_description}</p> */}
                 <Suspense>
                     <Description job_description={job_description} />
                 </Suspense>
-                <Separator className="my-1" />
+                <Separator className="my-2" />
                 <div className="flex items-center justify-end">
                     <Button asChild className="bg-blue-600 hover:bg-blue-700">
                         <a

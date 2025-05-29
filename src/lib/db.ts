@@ -6,10 +6,11 @@ const MONGODB_URI = process.env.MONGODB_URI!
 if (!MONGODB_URI) {
     throw new Error("Please define the MONGODB_URI environment variable")
 }
-
+// @ts-expect-error
 let cached = global.mongoose
 
 if (!cached) {
+    // @ts-expect-error
     cached = global.mongoose = { conn: null, promise: null }
 }
 
@@ -20,7 +21,7 @@ export async function connectDB() {
         cached.promise = mongoose.connect(MONGODB_URI, {
             dbName: "job",
         }).then((mongoose) => {
-            console.log("connected")
+
             return mongoose
         })
     }
@@ -28,3 +29,5 @@ export async function connectDB() {
     cached.conn = await cached.promise
     return cached.conn
 }
+
+
