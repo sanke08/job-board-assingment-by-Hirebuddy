@@ -4,6 +4,7 @@ import axios from "axios"
 import { Briefcase } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import ListingFeed from "./listing-feed"
+import { fetchJobs } from "@/app/api/jobs/search/route"
 
 type Props = {
     searchParams: { [key: string]: string | string[] | undefined };
@@ -12,19 +13,26 @@ type Props = {
 const Listings = async ({ searchParams }: Props) => {
 
 
-    const finalParams = { ...searchParams, }
-
-    const stringParams: Record<string, string> = {}
-
-    Object.entries(finalParams).forEach(([key, value]) => {
-        if (typeof value === "string" || typeof value === "number") {
-            stringParams[key] = String(value)
+    const stringParams: Record<string, string> = {};
+    for (const [key, value] of Object.entries(searchParams)) {
+        if (typeof value === "string") {
+            stringParams[key] = value;
+        } else if (Array.isArray(value)) {
+            stringParams[key] = value.join(",");
         }
-    })
+    }
 
-    const query = new URLSearchParams(stringParams).toString()
+    const jobsData = await fetchJobs({
+        page: stringParams.page ? parseInt(stringParams.page) : 1,
+        title: stringParams.title,
+        location: stringParams.location,
+        company: stringParams.company,
+        source: stringParams.source,
+        q: stringParams.q,
+    });
 
-    const { data: { jobs } } = await axios.get(`/api/jobs/search?${query}`)
+    const jobs = jobsData.jobs;
+
 
     return (
         <div className="space-y-4">
