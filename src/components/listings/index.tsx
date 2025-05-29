@@ -3,7 +3,7 @@
 import { Briefcase } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import ListingFeed from "./listing-feed"
-import { fetchJobs } from "@/app/api/jobs/search/route"
+import { fetchJobs } from "@/lib/fetchJob";
 
 type Props = {
     searchParams: { [key: string]: string | string[] | undefined };
